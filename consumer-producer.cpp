@@ -86,3 +86,59 @@ DWORD WINAPI consumer(LPVOID arg)
     }
     return 0;
 }
+
+int main(int argc, char *argv[])
+{
+    if (argc != 4)
+    {
+        std::cerr << "Usage: " << argv[0] << " <sleep_time> <num_producers> <num_consumers>" << std::endl;
+        return 1;
+    }
+
+    int sleep_time = atoi(argv[1]);
+    int num_producers = atoi(argv[2]);
+    int num_consumers = atoi(argv[3]);
+
+    // Initialize random seed
+    srand(static_cast<unsigned int>(time(NULL)));
+
+    // Initialize semaphores and mutex
+    empty = CreateSemaphore(NULL, BUFFER_SIZE, BUFFER_SIZE, NULL); // Initialize empty semaphore
+    full = CreateSemaphore(NULL, 0, BUFFER_SIZE, NULL);            // Initialize full semaphore
+    InitializeCriticalSection(&mutex);                             // Initialize mutex
+
+    // Create producer threads
+    HANDLE producers[num_producers];
+    for (int i = 0; i < num_producers; i++)
+    {
+        producers[i] = CreateThread(NULL, 0, producer, NULL, 0, NULL);
+    }
+
+    // Create consumer threads
+    HANDLE consumers[num_consumers];
+    for (int i = 0; i < num_consumers; i++)
+    {
+        consumers[i] = CreateThread(NULL, 0, consumer, NULL, 0, NULL);
+    }
+
+    // Sleep for the specified time
+    Sleep(sleep_time * 1000);
+
+    // Terminate the program
+    std::cout << "Terminating the program..." << std::endl;
+
+    // Clean up
+    for (int i = 0; i < num_producers; i++)
+    {
+        CloseHandle(producers[i]);
+    }
+    for (int i = 0; i < num_consumers; i++)
+    {
+        CloseHandle(consumers[i]);
+    }
+    CloseHandle(empty);
+    CloseHandle(full);
+    DeleteCriticalSection(&mutex);
+
+    return 0;
+}
