@@ -31,3 +31,31 @@
         std::cout << "Consumer consumed: " << item << std::endl;
         return item;
     }
+
+// Producer thread function
+DWORD WINAPI producer(LPVOID arg)
+{
+    int item;
+    while (true)
+    {
+        item = rand() % 100;                  // Generate a random item
+        WaitForSingleObject(empty, INFINITE); // Wait for an empty slot
+        EnterCriticalSection(&mutex);         // Acquire the mutex lock
+
+        // Check if it's producer's turn
+        while (!is_producer_turn)
+        {
+            LeaveCriticalSection(&mutex); // Release lock and wait
+            Sleep(10);
+            EnterCriticalSection(&mutex);
+        }
+
+        insertItem(item);        // Insert the item into the buffer
+        is_producer_turn = false; // Switch turn to consumer
+
+        LeaveCriticalSection(&mutex);    // Release the mutex lock
+        ReleaseSemaphore(full, 1, NULL); // Signal that a slot is full
+        Sleep(1000 + (rand() % 500));    // Randomized delay for producer
+    }
+    return 0;
+}
