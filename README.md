@@ -108,7 +108,7 @@ The output shows the sequential production and consumption of data.
 This project demonstrated how the Producer-Consumer Problem can be solved using concurrency tools available in the Windows operating system. The implementation successfully prevents race conditions and manages production and consumption operations in an orderly and concurrent manner. This method is particularly useful in systems with limited resources, such as embedded systems.
 
 ## References
-1. **An Example Implemention for Producer-Consumer Problem**:
+1. **An Example implementation for Producer-Consumer Problem**:
    - [GitHub Repository](https://github.com/forestLoop/Learning-EI338/blob/master/Project-5-2/buffer.c)
 
 2. **Educational Resources**:
