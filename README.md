@@ -8,7 +8,7 @@
 - [Code Explanation](#code-explanation)
 - [Program Output](#program-output)
 - [Conclusion](#conclusion)
-
+- [References](#references)
   
 ## Introduction
 This project is a simple implementation of the Producer-Consumer Problem, which is one of the classic problems in the field of concurrency. The goal of this project is to manage the production and consumption of data in a shared memory (buffer) using concurrency tools. This implementation is done using the C++ programming language and Windows operating system libraries.
@@ -106,3 +106,14 @@ The output shows the sequential production and consumption of data.
 
 ## Conclusion
 This project demonstrated how the Producer-Consumer Problem can be solved using concurrency tools available in the Windows operating system. The implementation successfully prevents race conditions and manages production and consumption operations in an orderly and concurrent manner. This method is particularly useful in systems with limited resources, such as embedded systems.
+
+## References
+1. **An Example Implemention for Producer-Consumer Problem**:
+   - [GitHub Repository](https://github.com/forestLoop/Learning-EI338/blob/master/Project-5-2/buffer.c)
+
+2. **Educational Resources**:
+   - [Operating System Concepts (10th Edition)](https://www.os-book.com/OS10/slide-dir/) - For foundational concepts on concurrency and resource management in operating systems.
+
+3. **Use of Artificial Intelligence Tools**:
+   - Used AI tools like GPT for assistance in analyzing, documenting, and enhancing the project development process.
+
